@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+.pytest_cache/
+*.egg-info/
+
+# Node
+node_modules/
+.next/
+
+# Env
+.env
+.env.local
+
+# Runtime data
+data/documents/
+data/*.db
+.runtime/
+output/
+docs/superpowers/
+*.log
+
+# macOS
+.DS_Store

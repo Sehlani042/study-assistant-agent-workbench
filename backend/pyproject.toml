@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "study-assistant-backend"
+version = "0.1.0"
+description = "Learning assistant backend with multi-agent PDF/PPT explanation pipeline"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.111.0",
+  "uvicorn>=0.30.0",
+  "python-multipart>=0.0.9",
+  "pydantic>=2.8.0",
+  "httpx>=0.27.0",
+  "PyMuPDF>=1.24.9",
+  "langgraph>=1.2.7",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2.0",
+  "reportlab>=4.2.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.setuptools]
+packages = ["app"]

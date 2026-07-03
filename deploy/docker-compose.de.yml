@@ -1,0 +1,35 @@
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: deploy/docker/backend.Dockerfile
+    image: study-assistant/backend:de
+    container_name: study-assistant-backend
+    restart: unless-stopped
+    env_file:
+      - ./env/backend.de.env
+    ports:
+      - "127.0.0.1:48100:8000"
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: deploy/docker/frontend.Dockerfile
+      args:
+        NEXT_PUBLIC_API_BASE: "https://api-study.cn2.sehlani.com"
+    image: study-assistant/frontend:de
+    container_name: study-assistant-frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:48101:3000"
